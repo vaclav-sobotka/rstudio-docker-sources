@@ -1,0 +1,9 @@
+#!/bin/bash
+MAPPINGS="/root/.mappings";
+while IFS= read -r LINE
+do
+	TOKENS=(${LINE//:/ });  
+	LOCAL_PART=${TOKENS[0]};
+    BUCKET_PART=${TOKENS[1]};
+	aws s3 sync --region eu-central-1 s3://"$BUCKET_PART" "$LOCAL_PART";
+done < "$MAPPINGS";
