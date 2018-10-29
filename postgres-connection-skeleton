@@ -1,0 +1,7 @@
+[PostgreSQL]
+Driver         = PostgreSQL Unicode
+Database       = model_data
+Servername     = rstudio-postgres
+UserName       = user
+Password       = 12345
+Port           = 5432
