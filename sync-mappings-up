@@ -7,3 +7,4 @@ do
     BUCKET_PART=${TOKENS[1]};
 	aws s3 sync --region eu-central-1 "$LOCAL_PART" s3://"$BUCKET_PART";
 done < "$MAPPINGS";
+echo "Sync-up completed";
