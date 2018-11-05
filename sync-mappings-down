@@ -6,4 +6,5 @@ do
 	LOCAL_PART=${TOKENS[0]};
     BUCKET_PART=${TOKENS[1]};
 	aws s3 sync --region eu-central-1 s3://"$BUCKET_PART" "$LOCAL_PART";
+	chown -R "$SUDO_USER":"$SUDO_USER" "$LOCAL_PART";
 done < "$MAPPINGS";
