@@ -83,11 +83,11 @@ if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD: /root/rstudio-docker-sources
 fi
 touch "/home/$USER/.profile";
 if [ -z $(cat "/home/$USER/.profile" | grep 'alias sync-up="sudo /root/rstudio-docker-sources/sync-mappings-up"') ]; then
-	echo 'alias sync-up="sudo /root/rstudio-docker-sources/sync-mappings-up"' >> "/home/$USER/.profile";
+	echo 'alias sync-up="sudo -E /root/rstudio-docker-sources/sync-mappings-up"' >> "/home/$USER/.profile";
 	source "/home/$USER/.profile";
 fi
 if [ -z $(cat "/home/$USER/.profile" | grep 'alias sync-down="sudo /root/rstudio-docker-sources/sync-mappings-down"') ]; then
-	echo 'alias sync-down="sudo /root/rstudio-docker-sources/sync-mappings-down"' >> "/home/$USER/.profile";
+	echo 'alias sync-down="sudo -E /root/rstudio-docker-sources/sync-mappings-down"' >> "/home/$USER/.profile";
 	source "/home/$USER/.profile";
 fi
 
