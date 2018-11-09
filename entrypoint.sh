@@ -68,26 +68,32 @@ for TUPLE in $(IFS=';'; echo $MAPPINGS); do
 	processTuple "$LOCAL_FOLDER" "$BUCKET_SUBFOLDER" "$DATA_FOLDER" "$BUCKET_NAME";
 done
 
+mkdir -p /root/.aws;
+echo "[default]" > /root/.aws/credentials;
+echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> /root/.aws/credentials;
+echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> /root/.aws/credentials;
+chmod 600 /root/.aws/credentials;
+
 #File appends if the appended lines do not already exist
 if [ -z $(cat /etc/sudoers | grep " localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up") ]; then
 	echo "$USER localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
 fi
-if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-up") ]; then
-	echo "$USER ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
+if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up") ]; then
+	echo "$USER ALL = NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
 fi
 if [ -z $(cat /etc/sudoers | grep " localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down") ]; then
 	echo "$USER localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
 fi
-if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-down") ]; then
-	echo "$USER ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
+if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down") ]; then
+	echo "$USER ALL = NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
 fi
 touch "/home/$USER/.profile";
 if [ -z $(cat "/home/$USER/.profile" | grep 'alias sync-up="sudo /root/rstudio-docker-sources/sync-mappings-up"') ]; then
-	echo 'alias sync-up="sudo -E /root/rstudio-docker-sources/sync-mappings-up"' >> "/home/$USER/.profile";
+	echo 'alias sync-up="sudo /root/rstudio-docker-sources/sync-mappings-up"' >> "/home/$USER/.profile";
 	source "/home/$USER/.profile";
 fi
 if [ -z $(cat "/home/$USER/.profile" | grep 'alias sync-down="sudo /root/rstudio-docker-sources/sync-mappings-down"') ]; then
-	echo 'alias sync-down="sudo -E /root/rstudio-docker-sources/sync-mappings-down"' >> "/home/$USER/.profile";
+	echo 'alias sync-down="sudo /root/rstudio-docker-sources/sync-mappings-down"' >> "/home/$USER/.profile";
 	source "/home/$USER/.profile";
 fi
 
