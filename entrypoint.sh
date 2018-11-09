@@ -72,14 +72,14 @@ done
 if [ -z $(cat /etc/sudoers | grep " localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up") ]; then
 	echo "$USER localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
 fi
-if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV /root/rstudio-docker-sources/sync-mappings-up") ]; then
-	echo "$USER ALL = NOPASSWD:SETENV /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
+if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-up") ]; then
+	echo "$USER ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-up" >> /etc/sudoers;
 fi
 if [ -z $(cat /etc/sudoers | grep " localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down") ]; then
 	echo "$USER localhost = (root) NOPASSWD: /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
 fi
-if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV /root/rstudio-docker-sources/sync-mappings-down") ]; then
-	echo "$USER ALL = NOPASSWD:SETENV /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
+if [ -z $(cat /etc/sudoers | grep " ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-down") ]; then
+	echo "$USER ALL = NOPASSWD:SETENV: /root/rstudio-docker-sources/sync-mappings-down" >> /etc/sudoers;
 fi
 touch "/home/$USER/.profile";
 if [ -z $(cat "/home/$USER/.profile" | grep 'alias sync-up="sudo /root/rstudio-docker-sources/sync-mappings-up"') ]; then
